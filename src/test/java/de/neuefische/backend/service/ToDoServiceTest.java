@@ -16,7 +16,7 @@ class ToDoServiceTest {
     ToDoService service = new ToDoService(repo);
 
     @Test
-    void getAllTodos() {
+    void getAllTodos_shouldReturnList() {
         //GIVEN
         List<ToDo> list = createListWithOneElement();
         when(repo.getToDoList()).thenReturn(list);
@@ -30,7 +30,7 @@ class ToDoServiceTest {
     }
 
     @Test
-    void getTodoById() {
+    void getTodoById_whenValidId_shouldReturnTodo() {
         //GIVEN
         List<ToDo> list = createListWithOneElement();
         when(repo.getTodoById("0")).thenReturn(list.get(0));
@@ -44,7 +44,7 @@ class ToDoServiceTest {
     }
 
     @Test
-    void putTodo() {
+    void putTodo_whenValidId_ShouldUpdateTodo() {
         // given
         ToDo putTodo = new ToDo();
         putTodo.setDescription("Todo PUT");
@@ -66,7 +66,7 @@ class ToDoServiceTest {
     }
 
     @Test
-    void deleteTodo() {
+    void deleteTodo_whenValidId_shouldDeleteTodo() {
         // given
         String expected = "Item gelöscht.";
 
@@ -81,7 +81,7 @@ class ToDoServiceTest {
     }
 
     @Test
-    void deleteTodo_DoesNotExist() {
+    void deleteTodo_whenInvalidId_shouldGetInvalidResponse() {
         // given
         String expected = "Kein Item mit der ID vorhanden.";
 
@@ -96,7 +96,7 @@ class ToDoServiceTest {
     }
 
     @Test
-    void postTodo() {
+    void postTodo_whenValidTodo_shouldSaveTodo() {
         // given
         ToDo postTodo = new ToDo();
         postTodo.setDescription("Todo POST");

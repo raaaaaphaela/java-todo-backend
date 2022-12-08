@@ -13,7 +13,20 @@ import static org.junit.jupiter.api.Assertions.fail;
 class ToDoRepositoryTest {
 
     @Test
-    void getTodoById() {
+    void getToDoList_shouldReturnFullList() {
+        // given
+        List<ToDo> list = createListWithOneElement();
+        ToDoRepository repository = new ToDoRepository(list);
+
+        // when
+        List<ToDo> actual = repository.getToDoList();
+
+        // then
+        Assertions.assertEquals(list, actual);
+    }
+
+    @Test
+    void getTodoById_whenValidId_shouldReturnTodo() {
         // given
         List<ToDo> list = createListWithOneElement();
         ToDoRepository repository = new ToDoRepository(list);
@@ -26,7 +39,7 @@ class ToDoRepositoryTest {
     }
 
     @Test
-    void getTodoByInvalidId_expectException() {
+    void getTodoById_WhenInvalidId_ThenExpectException() {
         // given
         List<ToDo> list = createListWithOneElement();
         ToDoRepository repository = new ToDoRepository(list);
@@ -43,7 +56,7 @@ class ToDoRepositoryTest {
     }
 
     @Test
-    void putTodo() {
+    void putTodo_WhenValidId_ThenUpdateExistingTodo() {
         // given
         List<ToDo> list = createListWithOneElement();
         ToDo changedTodo = new ToDo("0", "FirstTodo", "OPEN");
@@ -57,7 +70,7 @@ class ToDoRepositoryTest {
     }
 
     @Test
-    void deleteTodo() {
+    void deleteTodo_WhenExistingToDo_ThenDelete() {
 
         // given
         List<ToDo> list = createListWithOneElement();
@@ -71,7 +84,7 @@ class ToDoRepositoryTest {
     }
 
     @Test
-    void deleteTodo_DoesNotExist() {
+    void deleteTodo_WhenNonExistentToDo_ShouldReturnString() {
 
         // given
         List<ToDo> list = createListWithOneElement();
@@ -87,7 +100,7 @@ class ToDoRepositoryTest {
     }
 
     @Test
-    void postTodo() {
+    void postTodo_whenValidTodo_ThenSaveTodo() {
         // given
         List<ToDo> list = createListWithOneElement();
         ToDo newTodo = new ToDo();
@@ -101,19 +114,6 @@ class ToDoRepositoryTest {
 
         // then
         Assertions.assertEquals(new ToDo("1", "Zweites Todo", "OPEN"), actual);
-    }
-
-    @Test
-    void getToDoList() {
-        // given
-        List<ToDo> list = createListWithOneElement();
-        ToDoRepository repository = new ToDoRepository(list);
-
-        // when
-        List<ToDo> actual = repository.getToDoList();
-
-        // then
-        Assertions.assertEquals(list, actual);
     }
 
     private List<ToDo> createListWithOneElement() {
