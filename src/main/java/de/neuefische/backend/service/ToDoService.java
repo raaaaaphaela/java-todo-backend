@@ -31,8 +31,8 @@ public class ToDoService {
         return repository.putTodo(id, toDo);
     }
 
-    public void deleteTodo(String id) {
-        repository.deleteTodo(id);
+    public String deleteTodo(String id) {
+       return repository.deleteTodo(id);
     }
 
     public ToDo postTodo(ToDo newTodo) {

@@ -27,8 +27,15 @@ public class ToDoRepository {
         return toDoList.get(Integer.parseInt(id));
     }
 
-    public void deleteTodo(String id) {
-        toDoList.remove(toDoList.get(Integer.parseInt(id)));
+    public String deleteTodo(String id) {
+
+        if (toDoList.size() > Integer.parseInt(id)
+                && toDoList.get(Integer.parseInt(id)) != null) {
+            toDoList.remove(toDoList.get(Integer.parseInt(id)));
+            return "Item gelöscht.";
+        } else {
+            return "Kein Item mit der ID vorhanden.";
+        }
     }
 
     public ToDo postTodo(ToDo newTodo) {

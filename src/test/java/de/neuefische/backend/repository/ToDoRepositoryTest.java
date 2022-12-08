@@ -8,22 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class ToDoRepositoryTest {
-
-    private List<ToDo> createListWithOneElement() {
-        List<ToDo> list = new ArrayList<>();
-        ToDo todo = new ToDo("0", "First Todo", "OPEN");
-        list.add(todo);
-        return list;
-    }
 
     @Test
     void getTodoById() {
         // given
         List<ToDo> list = createListWithOneElement();
-
         ToDoRepository repository = new ToDoRepository(list);
 
         // when
@@ -37,12 +29,11 @@ class ToDoRepositoryTest {
     void getTodoByInvalidId_expectException() {
         // given
         List<ToDo> list = createListWithOneElement();
-
         ToDoRepository repository = new ToDoRepository(list);
 
         try {
-        repository.getTodoById("1");
-        fail();
+            repository.getTodoById("1");
+            fail();
 
         } catch (IndexOutOfBoundsException e) {
             assertThat(e)
@@ -55,9 +46,7 @@ class ToDoRepositoryTest {
     void putTodo() {
         // given
         List<ToDo> list = createListWithOneElement();
-
         ToDo changedTodo = new ToDo("0", "FirstTodo", "OPEN");
-
         ToDoRepository repository = new ToDoRepository(list);
 
         // when
@@ -82,6 +71,22 @@ class ToDoRepositoryTest {
     }
 
     @Test
+    void deleteTodo_DoesNotExist() {
+
+        // given
+        List<ToDo> list = createListWithOneElement();
+        ToDoRepository repository = new ToDoRepository(list);
+
+        String expected = "Kein Item mit der ID vorhanden.";
+
+        // when
+        String actual = repository.deleteTodo("1");
+
+        // then
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     void postTodo() {
         // given
         List<ToDo> list = createListWithOneElement();
@@ -95,7 +100,6 @@ class ToDoRepositoryTest {
         ToDo actual = repository.postTodo(newTodo);
 
         // then
-
         Assertions.assertEquals(new ToDo("1", "Zweites Todo", "OPEN"), actual);
     }
 
@@ -110,5 +114,12 @@ class ToDoRepositoryTest {
 
         // then
         Assertions.assertEquals(list, actual);
+    }
+
+    private List<ToDo> createListWithOneElement() {
+        List<ToDo> list = new ArrayList<>();
+        ToDo todo = new ToDo("0", "First Todo", "OPEN");
+        list.add(todo);
+        return list;
     }
 }
