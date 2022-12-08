@@ -11,8 +11,8 @@ import java.util.List;
 
 @Data
 @Component
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ToDoRepository {
 
     private List<ToDo> toDoList = new ArrayList<>();
