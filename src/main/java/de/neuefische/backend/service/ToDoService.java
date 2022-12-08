@@ -2,19 +2,17 @@ package de.neuefische.backend.service;
 
 import de.neuefische.backend.model.ToDo;
 import de.neuefische.backend.repository.ToDoRepository;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Data
 @Service
-@NoArgsConstructor
 public class ToDoService {
 
-    private ToDoRepository repository;
+    private final ToDoRepository repository;
 
-    @Autowired
     public ToDoService(ToDoRepository repository) {
         this.repository = repository;
     }
@@ -32,7 +30,7 @@ public class ToDoService {
     }
 
     public String deleteTodo(String id) {
-       return repository.deleteTodo(id);
+        return repository.deleteTodo(id);
     }
 
     public ToDo postTodo(ToDo newTodo) {

@@ -2,17 +2,19 @@ package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.ToDo;
 import de.neuefische.backend.service.ToDoService;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/todo")
 public class ToDoController {
 
-    private ToDoService service;
+    private final ToDoService service;
+
+    public ToDoController(ToDoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<ToDo> getAllTodos() {

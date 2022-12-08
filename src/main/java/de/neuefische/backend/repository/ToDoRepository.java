@@ -3,16 +3,19 @@ package de.neuefische.backend.repository;
 import de.neuefische.backend.model.ToDo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Component
 @AllArgsConstructor
+@NoArgsConstructor
 public class ToDoRepository {
 
-    private List<ToDo> toDoList;
+    private List<ToDo> toDoList = new ArrayList<>();
 
     public ToDo getTodoById(String id) {
         return toDoList.get(Integer.parseInt(id));
